@@ -56,6 +56,22 @@ public class LogService implements ILogService {
 		}
 		return result;
 	}
+
+	@Override
+	public List<LogDTO> findChildLog(String search, String start, String end) {
+		Long parentId = userRepository.findByUsername(search).getId();
+		List<LogDTO> result = new ArrayList<>();
+		List<Object[]> entities = logRepository.countLog(start, end);
+		for(int i = 0; i<entities.size(); i++) {
+			Object[] row = (Object[])entities.get(i);
+			UserEntity entity = userRepository.findByUsername((String) row[0]);
+			if(entity.getParentid() == parentId) {
+				LogDTO dto = new LogDTO(search,(String) row[0],  Long.parseLong(row[1].toString()));
+				result.add(dto);
+			}
+			}
+		return result;
+	}
 	
 	
 }

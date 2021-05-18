@@ -15,5 +15,7 @@ public interface ILogService {
 	List<LogDTO> countLog(String start, String end);
 	
 	List<LogDTO> showtLog(String search, String start, String end);
-
+	
+	List<LogDTO> findChildLog(String search, String start, String end);
+	
 }

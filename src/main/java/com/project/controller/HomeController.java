@@ -111,7 +111,7 @@ public class HomeController {
 			String endNew = stringUtil.splitString(end);
 			if(startNew != "" && endNew !="") {
 				if(search != null && search != "") {
-					model.setListResult(logService.showtLog(search, startNew, endNew));
+					model.setListResult(logService.findChildLog(search, startNew, endNew));
 				}else {
 					model.setListResult(logService.countLog(startNew, endNew));
 					
