@@ -18,8 +18,25 @@
         </div>
         <div class="page-content">
             <div class="row" >
+            <h2>Xem danh sách mã rơi sau khi kích hoạt một ID mới !!!</h2>
+            
+            <br/>
                 <div class="col-xs-12">
-
+				<div class="search">
+					<form>
+						<input type="text" name="search"
+							style="width: 200px; heigh: 50px;" class="rounded-sm"
+							placeholder="Nhập số thứ thự ID" /> 
+					</form>
+				</div>
+				<br/>
+				<div class="form-group">
+					<h4>Kết quả</h4>
+				</div>
+				
+				<div class="form-group">
+					<p> ${result}
+				</div>
                 </div>
             </div>
         </div>

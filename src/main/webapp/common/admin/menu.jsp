@@ -47,8 +47,13 @@
 				</a> <b class="arrow"></b></li>
 
 				<li><a
-					href="<c:url value='/quan-tri/thanh-vien/danh-sach?page=1&limit=20'/>"> <i
+					href="<c:url value='/quan-tri/thanh-vien/danh-sach?page=1&limit=50'/>"> <i
 						class="menu-icon fa fa-caret-right"></i> Xem hệ thống
+				</a> <b class="arrow"></b></li>
+				
+				<li><a
+					href="<c:url value='/quan-tri/thanh-vien/thong-ke'/>"> <i
+						class="menu-icon fa fa-caret-right"></i> Xem thống kê doanh thu
 				</a> <b class="arrow"></b></li>
 			</ul></li>
 

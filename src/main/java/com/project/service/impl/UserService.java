@@ -16,6 +16,9 @@ import com.project.service.IUserService;
 @Service
 public class UserService implements IUserService {
 	
+	int row = 0;
+	String s = "";
+	
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -82,5 +85,43 @@ public class UserService implements IUserService {
 		}
 		return models;
 	}
+
+	@Override
+	public String findIDWhenActive(int id) {
+		s = "";
+		result(id, findPossition(id));
+		return s;
+	}
+	
+	public int findPossition(int index){
+        int sum = 1;
+        int count = 0;
+        for (int i = 1; i < 15; i++) {
+            if (index > sum*3-1){
+                sum = sum*3 -1;
+                count = i;
+            }else {
+
+                break;
+            }
+        }
+        row = count;
+        return sum;
+    }
+
+    public void result(int index, int sum){
+        int tmp = index;
+        for (int i = row-1; i >= 1 ; i--) {
+            int tmp2 = tmp - sum;
+            int tmp1 = 1;
+            for (int j = 1; j <= i; j++) {
+                tmp1 = tmp1*3;
+            }
+            tmp2 = tmp2%tmp1;
+            sum = (sum +1)/3;
+            s = s + String.valueOf(sum + tmp2) + "\t";
+            tmp = sum + tmp2;
+        }
+    }
 
 }

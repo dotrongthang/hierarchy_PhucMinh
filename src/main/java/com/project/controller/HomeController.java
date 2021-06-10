@@ -1,6 +1,7 @@
 package com.project.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -15,10 +16,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.cj.protocol.Protocol.GetProfilerEventHandlerInstanceFunction;
 import com.project.converter.UserConverter;
+import com.project.dto.LogDTO;
 import com.project.dto.UserDTO;
+import com.project.entity.LogEntity;
+import com.project.entity.SurveyAnswerStatistics;
+import com.project.service.ILogService;
 import com.project.service.IUserService;
 import com.project.utils.MessageUtil;
+import com.project.utils.StringUtil;
+
+import jdk.internal.net.http.common.Log;
 
 @Controller(value = "homeControllerOfAdmin")
 public class HomeController {
@@ -27,14 +36,25 @@ public class HomeController {
 	private MessageUtil messageUtil;
 	
 	@Autowired
+	private StringUtil stringUtil;
+	
+	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private ILogService logService;
 	
 	@Autowired
 	private UserConverter userConverter;
 
 	@RequestMapping(value = "/quan-tri/trang-chu", method = RequestMethod.GET)
-	public ModelAndView homePage() {
+	public ModelAndView homePage(@RequestParam(value ="search", required = false) String search) {
 		ModelAndView mav = new ModelAndView("admin/home");
+		String result = "";
+		if(search != null) {
+			result = userService.findIDWhenActive(Integer.parseInt(search));
+		}
+		mav.addObject("result", result);
 		return mav;
 	}
 
@@ -83,6 +103,32 @@ public class HomeController {
 			mav.addObject("alert", message.get("alert"));
 		}
 		mav.addObject("model", model);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/quan-tri/thanh-vien/thong-ke", method = RequestMethod.GET)
+	public ModelAndView showLog(@RequestParam(value ="search", required = false) String search,
+			@RequestParam(value ="start", required = false) String start,
+			@RequestParam(value ="end", required = false) String end) {
+		
+		LogDTO model = new LogDTO();
+		ModelAndView mav = new ModelAndView("admin/log");
+		if(start != null && end != null) {
+			String startNew = stringUtil.splitString(start);
+			String endNew = stringUtil.splitString(end);
+			if(startNew != "" && endNew !="") {
+				if(search != null) {
+					model.setListResult(logService.showtLog(search, startNew, endNew));
+				}else {
+					model.setListResult(logService.countLog(startNew, endNew));
+					
+				}
+				mav.addObject("model", model);
+			}else {
+				mav.addObject("model", model);
+			}	
+		}
+		
 		return mav;
 	}
 }

@@ -22,12 +22,6 @@ public class MessageUtil {
 		} else if (message.equals("error_system")) {
 			result.put("message", "Lỗi hệ thống");
 			result.put("alert", "danger");
-		} else if (message.equals("cart_success")) {
-			result.put("message", "Đặt mua thành công");
-			result.put("alert", "success");
-		} else if (message.equals("register_success")) {
-			result.put("message", "Đăng ký thành công");
-			result.put("alert", "success");
 		}
 		return result;
 	}

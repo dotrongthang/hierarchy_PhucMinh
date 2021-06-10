@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	
 	@Modifying
 	@Transactional
-	@Query(value ="UPDATE user SET count = (count + 1) WHERE id = ?", nativeQuery = true)
+	@Query(value ="UPDATE user SET count = (count + 1), createddate = NOW() WHERE id = ?", nativeQuery = true)
 	public void updateCount(Long id);
 	
 	List<UserEntity> findByParentid(Long parentid);

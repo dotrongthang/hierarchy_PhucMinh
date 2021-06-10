@@ -24,6 +24,7 @@ public class UserConverter {
 	public UserDTO toDTO( UserEntity entity) {
 		UserDTO result = new UserDTO();
 		result.setId(entity.getId());
+		result.setCreatedDate(entity.getCreatedDate());
 		result.setUsername(entity.getUsername());
 		if(entity.getParentid() == 0) {
 			result.setParentname("Không có");

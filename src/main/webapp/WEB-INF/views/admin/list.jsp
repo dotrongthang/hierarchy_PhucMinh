@@ -97,6 +97,7 @@
 													<th><input type="checkbox" id="checkAll"></th>
 													<th>Tên tài khoản</th>
 													<th>Người giới thiệu</th>
+													<th>Ngày kích hoạt</th>
 													<th>Tổng doanh thu (x2,000,000 VNĐ)</th>
 												</tr>
 											</thead>
@@ -107,6 +108,7 @@
 															value="${item.id}"></td>
 														<td>${item.username}</td>
 														<td>${item.parentname}</td>
+														<td>${item.createdDate}</td>
 														<td>${item.count}</td>
 													</tr>
 												</c:forEach>

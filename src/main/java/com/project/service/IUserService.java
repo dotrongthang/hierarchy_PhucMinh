@@ -16,4 +16,6 @@ public interface IUserService {
 	List<UserDTO> findAll(Pageable pageable);
 	int getTotalItem();
 	List<UserDTO> findByParentId(Long parentId);
+	String findIDWhenActive(int id);
+			
 }
