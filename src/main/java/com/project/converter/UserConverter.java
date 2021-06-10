@@ -16,7 +16,11 @@ public class UserConverter {
 	public UserEntity toEntity( UserDTO dto) {
 		UserEntity result = new UserEntity();
 		result.setUsername(dto.getUsername());
-		result.setParentid(userService.findByParentName(dto.getParentname()).get(0).getId());
+		if(dto.getParentname() != "") {
+			result.setParentid(userService.findByParentName(dto.getParentname()).get(0).getId());
+		}else {
+			result.setParentid(0L);
+		}
 		result.setCount(0L);
 		return result;
 	}

@@ -1,8 +1,16 @@
 package com.project.dto;
 
 public class LogDTO extends AbstractDTO<LogDTO> {
+	private String parentname;
 	private String username;
 	private Long count;
+	
+	public String getParentname() {
+		return parentname;
+	}
+	public void setParentname(String parentname) {
+		this.parentname = parentname;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -19,12 +27,12 @@ public class LogDTO extends AbstractDTO<LogDTO> {
 	public LogDTO() {
 		super();
 	}
-	public LogDTO(String username, Long count) {
+	public LogDTO(String parentname, String username, Long count) {
 		super();
+		this.parentname = parentname;
 		this.username = username;
 		this.count = count;
-	}
-	
+	}	
 	
 
 }

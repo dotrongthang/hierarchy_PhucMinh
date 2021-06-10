@@ -62,6 +62,7 @@
 													<th>Thời gian</th>
 													<th>Tên tài khoản</th>
 													<th>Tổng doanh thu (x2,000,000 VNĐ)</th>
+													<th>Người giới thiệu</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -70,6 +71,7 @@
 														<td>${item.createdDate}</td>
 														<td>${item.username}</td>
 														<td>${item.count}</td>
+														<td>${item.parentname}</td>
 													</tr>
 												</c:forEach>
 											</tbody>

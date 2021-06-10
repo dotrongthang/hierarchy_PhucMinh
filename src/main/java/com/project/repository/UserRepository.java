@@ -22,4 +22,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	public void updateCount(Long id);
 	
 	List<UserEntity> findByParentid(Long parentid);
+	
+	UserEntity findByUsername(String username);
 }

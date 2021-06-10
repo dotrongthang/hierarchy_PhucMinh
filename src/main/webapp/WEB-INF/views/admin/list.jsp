@@ -137,7 +137,7 @@
             startPage: currentPage,
             onPageClick: function (event, page) {
             	if (currentPage != page) {
-            		$('#limit').val(2);
+            		$('#limit').val(50);
 					$('#page').val(page);
 					$('#formSubmit').submit();
 				}

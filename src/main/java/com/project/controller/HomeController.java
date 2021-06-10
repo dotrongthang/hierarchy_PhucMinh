@@ -1,8 +1,5 @@
 package com.project.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,18 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.cj.protocol.Protocol.GetProfilerEventHandlerInstanceFunction;
 import com.project.converter.UserConverter;
 import com.project.dto.LogDTO;
 import com.project.dto.UserDTO;
-import com.project.entity.LogEntity;
-import com.project.entity.SurveyAnswerStatistics;
 import com.project.service.ILogService;
 import com.project.service.IUserService;
 import com.project.utils.MessageUtil;
 import com.project.utils.StringUtil;
-
-import jdk.internal.net.http.common.Log;
 
 @Controller(value = "homeControllerOfAdmin")
 public class HomeController {
@@ -53,6 +45,7 @@ public class HomeController {
 		String result = "";
 		if(search != null) {
 			result = userService.findIDWhenActive(Integer.parseInt(search));
+			result = result + "\t 1";
 		}
 		mav.addObject("result", result);
 		return mav;
@@ -65,12 +58,12 @@ public class HomeController {
 			HttpServletRequest request) {
 		UserDTO model = new UserDTO();
 		ModelAndView mav = new ModelAndView("admin/list");
-		if(searchId != null) {
+		if(searchId != null && searchId != "") {
 			model.setPage(page);
 			model.setLimit(limit);
 			Pageable pageable = new PageRequest(page - 1, limit);
 			model.setListResult(userService.findByName(searchId));
-		} else if(search != null) {
+		} else if(search != null && search != "") {
 			model.setPage(page);
 			model.setLimit(limit);
 			Pageable pageable = new PageRequest(page - 1, limit);
@@ -117,7 +110,7 @@ public class HomeController {
 			String startNew = stringUtil.splitString(start);
 			String endNew = stringUtil.splitString(end);
 			if(startNew != "" && endNew !="") {
-				if(search != null) {
+				if(search != null && search != "") {
 					model.setListResult(logService.showtLog(search, startNew, endNew));
 				}else {
 					model.setListResult(logService.countLog(startNew, endNew));
