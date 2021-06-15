@@ -28,5 +28,8 @@ public interface LogRepository extends JpaRepository<LogEntity, Long> {
 	@Query(value ="SELECT * FROM log WHERE createddate >= ? AND createddate <= ? AND username = ?", nativeQuery = true)
 	public List<LogEntity> showLog(String start, String end, String username);
 	
-
+	@Modifying
+	@Transactional
+	@Query(value ="Delete from log where fromId = ?", nativeQuery = true)
+	public void deleteLog(Long fromId);
 }

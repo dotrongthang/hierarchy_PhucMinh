@@ -5,7 +5,14 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 	private String username;
 	private String parentname;
 	private Long count;
+	private String date;
 	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public String getUsername() {
 		return username;
 	}

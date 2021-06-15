@@ -13,9 +13,12 @@ public interface IUserService {
 	List<UserEntity> findByParentName(String parentName);
 	List<UserDTO> findByName(String name);
 	UserEntity findOneById(Long id);
+	UserDTO findById(Long id);
 	List<UserDTO> findAll(Pageable pageable);
 	int getTotalItem();
 	List<UserDTO> findByParentId(Long parentId);
 	String findIDWhenActive(int id);
+	
+	UserDTO updateTime(UserDTO dto);
 			
 }

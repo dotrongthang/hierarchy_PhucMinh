@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import com.project.converter.UserConverter;
 import com.project.dto.UserDTO;
 import com.project.entity.UserEntity;
+import com.project.repository.LogRepository;
 import com.project.repository.UserRepository;
 import com.project.service.IUserService;
+import com.project.utils.DateUtil;
 
 @Service
 public class UserService implements IUserService {
@@ -23,18 +25,24 @@ public class UserService implements IUserService {
 	private UserRepository userRepository;
 	
 	@Autowired
+	private LogRepository logRepository;
+	
+	@Autowired
+	private DateUtil dateUtil;
+	
+	@Autowired
 	private UserConverter userConverter;
 
 	@Override
 	public UserDTO save(UserDTO dto) {
 		UserEntity entityNew = userConverter.toEntity(dto);
+		UserEntity entityFinal = userRepository.save(entityNew);
 		UserEntity entity = userConverter.toEntity(dto);
 		while(entity.getParentid() !=0) {
 			Long id = entity.getParentid();
-			userRepository.updateCount(id);
+			userRepository.updateCount(entityFinal.getCreatedDate(), entityFinal.getId(), id);
 			entity = userRepository.findOne(id);
 		}
-		UserEntity entityFinal = userRepository.save(entityNew);
 		return userConverter.toDTO(entityFinal);
 	}
 
@@ -123,5 +131,17 @@ public class UserService implements IUserService {
             tmp = sum + tmp2;
         }
     }
+
+	@Override
+	public UserDTO findById(Long id) {
+		return userConverter.toDTO(userRepository.findOne(id));
+	}
+
+	@Override
+	public UserDTO updateTime(UserDTO dto) {
+		userRepository.updateDate(dateUtil.convertToDate(dto.getDate()), dto.getId());
+		logRepository.deleteLog(0L);		
+		return userConverter.toDTO(userRepository.findOne(dto.getId()));
+	}
 
 }

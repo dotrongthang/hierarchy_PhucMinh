@@ -1,5 +1,6 @@
 package com.project.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -18,10 +19,15 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	
 	@Modifying
 	@Transactional
-	@Query(value ="UPDATE user SET count = (count + 1), createddate = NOW() WHERE id = ?", nativeQuery = true)
-	public void updateCount(Long id);
+	@Query(value ="UPDATE user SET count = (count + 1), modifieddate = ?, fromId = ? WHERE id = ?", nativeQuery = true)
+	public void updateCount(Date modifieddate,Long fromId, Long id);
 	
 	List<UserEntity> findByParentid(Long parentid);
 	
 	UserEntity findByUsername(String username);
+	
+	@Modifying
+	@Transactional
+	@Query(value ="UPDATE user SET createddate = ?, fromId = 0 WHERE id = ?", nativeQuery = true)
+	public void updateDate(Date createddate, Long id);
 }

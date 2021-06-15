@@ -2,27 +2,21 @@ package com.project.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.dto.UserDTO;
 import com.project.service.IUserService;
 
-@RestController(value = "userAPIOfAdmin")
-public class UserAPI {
+@RestController(value = "memberAPIOfAdmin")
+public class MemberAPI {
 	
 	@Autowired
 	private IUserService userService;
 	
-	@PostMapping("/api/user")
+	@PostMapping("/api/member")
 	public UserDTO createUser(@RequestBody UserDTO userDTO) {
 		return userService.save(userDTO);
-	}
-	
-	@PutMapping("/api/user")
-	public UserDTO updateUser(@RequestBody UserDTO userDTO) {
-		return userService.updateTime(userDTO);
 	}
 
 

@@ -99,6 +99,7 @@
 													<th>Người giới thiệu</th>
 													<th>Ngày kích hoạt</th>
 													<th>Tổng doanh thu (x2,000,000 VNĐ)</th>
+													<th>Thao tác</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -110,6 +111,14 @@
 														<td>${item.parentname}</td>
 														<td>${item.createdDate}</td>
 														<td>${item.count}</td>
+														<td>		
+																<c:url var="updateUserURL" value="/quan-tri/thanh-vien/chinh-sua">
+																	<c:param name="id" value="${item.id}"/>
+																</c:url>														
+																<a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
+																   title="Cập nhật thông tin" href='${updateUserURL}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+																</a>
+															</td>
 													</tr>
 												</c:forEach>
 											</tbody>

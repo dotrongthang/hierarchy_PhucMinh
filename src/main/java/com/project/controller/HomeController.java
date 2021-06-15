@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,7 +89,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/quan-tri/them-moi", method = RequestMethod.GET)
 	public ModelAndView AddPage(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("admin/edit");
+		ModelAndView mav = new ModelAndView("admin/add");
 		UserDTO model = new UserDTO();
 		if (request.getParameter("message") != null) {
 			Map<String, String> message = messageUtil.getMessage(request.getParameter("message"));
@@ -124,4 +125,27 @@ public class HomeController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value = "/quan-tri/thanh-vien/chinh-sua", method = RequestMethod.GET)
+	   public ModelAndView editNew(@RequestParam(value = "id", required = false) Long id, HttpServletRequest request) {
+	      ModelAndView mav = new ModelAndView("admin/edit");
+	      UserDTO model = new UserDTO();
+	      if(id != null) {
+	    	  model = userService.findById(id);  
+	      }
+	      if (request.getParameter("message") != null) {
+	    	  	Map<String, String> message = messageUtil.getMessage(request.getParameter("message"));
+				mav.addObject("message", message.get("message"));
+				mav.addObject("alert",  message.get("alert"));
+		}
+	      mav.addObject("model", model);
+	      return mav;
+	   }
+	
+	
+	@RequestMapping(value = "/quan-tri/thanh-vien/chinh-sua/{id}", method = RequestMethod.GET)
+	   public ModelAndView updateNew(@PathVariable("id") long id) {
+	      ModelAndView mav = new ModelAndView("admin/edit");
+	      return mav;
+	   }
 }

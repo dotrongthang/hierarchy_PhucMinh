@@ -14,6 +14,17 @@ public class LogEntity extends BaseEntity {
 	@Column(name = "count")
 	private Long count;
 	
+	@Column(name = "fromId")
+	private Long fromid;
+	
+
+	public Long getFromid() {
+		return fromid;
+	}
+
+	public void setFromid(Long fromid) {
+		this.fromid = fromid;
+	}
 	public String getUsername() {
 		return username;
 	}

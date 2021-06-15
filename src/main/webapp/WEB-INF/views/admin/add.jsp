@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@include file="/common/taglib.jsp"%>
-<c:url var="editUserURL" value="/quan-tri/thanh-vien/chinh-sua"/>
+<c:url var="addUserURL" value="/quan-tri/them-moi"/>
 <c:url var="userAPI" value="/api/user"/>
 <html>
 <head>
@@ -45,20 +45,18 @@
 						</div>
 						
 						<div class="form-group">
-								<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Ngày kích hoạt</label>
+								<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Id người giới thiệu</label>
 								<div class="col-sm-9">
-									<form:input path="date" cssClass="col-xs-10 col-sm-5"/>
+									<form:input path="parentname" cssClass="col-xs-10 col-sm-5"/>
 								</div>
 						</div>
-						
-						<form:hidden path="id" id="productId"/>
 						
 						<div class="clearfix form-actions">
 							<div class="col-md-offset-3 col-md-9">
 								
 									<button class="btn btn-info" type="button" id="btnAddUser">
 										<i class="ace-icon fa fa-check bigger-110"></i>
-										Cập nhật thông tin
+										Thêm thành viên
 									</button>
 											&nbsp; &nbsp; &nbsp;
 								<button class="btn" type="reset">
@@ -83,22 +81,22 @@
             data[""+v.name+""] = v.value;
         });
 	    
-        updateUser(data);
+        addUser(data);
 
 	});
 	
-	function updateUser(data){
+	function addUser(data){
 		$.ajax({
             url: '${userAPI}',
-            type: 'PUT',
+            type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-            	window.location.href = "${editUserURL}?message=update_success";
+            	window.location.href = "${addUserURL}?message=insert_success";
             },
             error: function (error) {
-            	window.location.href = "${editUserURL}?message=error_system";
+            	window.location.href = "${addUserURL}?message=error_system";
             }
         });
 	}
